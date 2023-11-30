@@ -1,2 +1,4 @@
 # advent-of-code-2023
-Advent of Code 2023 Problems
+This repository contains my attempts at the Advent of Code 2023 Problems.
+
+This project uses CMake.
