@@ -2,17 +2,16 @@
 #define ADVENT_OF_CODE_PARTSGRID_H
 #include <string>
 #include <algorithm>
-typedef unsigned short PartNumber;
+#include "PartsScanner.h"
 
 class PartsGrid {
 public:
     void addLine(const std::string &line);
     [[nodiscard]] std::vector<PartNumber> getValidNumbers() const;
+    [[nodiscard]] std::vector<Gear> getGears() const;
 
 private:
     std::vector<std::string> lines;
-
-    [[nodiscard]] static bool scanForSpecialChars(const std::string &line, int startChar, int endChar, int offset);
 };
 
 

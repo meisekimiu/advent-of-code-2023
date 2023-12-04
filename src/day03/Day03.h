@@ -6,8 +6,10 @@
 class Day03 : public AdventDay {
 public:
     int mainPartOne() override;
+    int mainPartTwo() override;
     void addLine(const std::string& line);
     int partNumberSum();
+    int gearRatioSum();
 
 private:
     PartsGrid grid;
