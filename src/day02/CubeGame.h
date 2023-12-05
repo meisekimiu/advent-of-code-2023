@@ -16,7 +16,7 @@ public:
     void addResults(CubeCount red, CubeCount green, CubeCount blue);
     [[nodiscard]] bool isPossible(CubeCount red, CubeCount green, CubeCount blue) const;
     void parseLine(const std::string &line);
-    CubeResults getMinimumValidCubes() const;
+    [[nodiscard]] CubeResults getMinimumValidCubes() const;
 
 protected:
     std::vector<CubeResults> results;
