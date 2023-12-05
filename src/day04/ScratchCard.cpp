@@ -14,9 +14,12 @@ void ScratchCard::parseLine(const std::string &line) {
     int numbersStart = static_cast<int>(line.find(':'));
     int numbersDivider = static_cast<int>(line.find('|'));
 
+    extractGameId(line, numbersStart);
     winningNumbers = extractNumbersFromSubstring(line, numbersStart, numbersDivider - numbersStart);
     numbers = extractNumbersFromSubstring(line, numbersDivider, std::string::npos);
 }
+
+void ScratchCard::extractGameId(const std::string &line, int numbersStart) { id = *extractNumbersFromSubstring(line, 0, numbersStart).begin(); }
 
 std::set<int> ScratchCard::extractNumbersFromSubstring(const std::string &line, unsigned long pos, unsigned long length) {
     std::set<int> nums;
@@ -37,11 +40,12 @@ std::set<int> ScratchCard::getNumbers() const {
 }
 
 int ScratchCard::getScore() const {
+    int matches = getNumberOfMatches();
+    return matches == 0 ? 0 : 1 << (matches - 1);
+}
+
+int ScratchCard::getNumberOfMatches() const {
     std::vector<int> intersection(winningNumbers.size());
     auto it = std::set_intersection(winningNumbers.begin(), winningNumbers.end(), numbers.begin(), numbers.end(), intersection.begin());
-    intersection.resize(it - intersection.begin());
-    if (intersection.empty()) {
-        return 0;
-    }
-    return 1 << (intersection.size() - 1);
+    return static_cast<int>(it - intersection.begin());
 }
