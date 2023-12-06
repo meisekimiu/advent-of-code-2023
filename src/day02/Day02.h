@@ -11,11 +11,12 @@ public:
     [[nodiscard]] int sumOfValidGameIds(CubeCount red, CubeCount green, CubeCount blue) const;
     [[nodiscard]] int sumOfCubePower()const ;
 
+protected:
+    void parseLine(const std::string &line) override;
+
 private:
     std::vector<CubeGame> games;
     std::vector<std::string> lines;
-
-    void readInput(const char* path);
 };
 
 

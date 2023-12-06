@@ -1,4 +1,6 @@
 #include "AdventDay.h"
+#include <fstream>
+#include <sstream>
 
 void AdventDay::setArgs(const std::vector<std::string>& a) {
     this->args = a;
@@ -23,4 +25,24 @@ int AdventDay::run() {
         return mainPartOne();
     }
     return mainPartTwo();
+}
+
+void AdventDay::parseLine(const std::string &line) {
+    // do nothing
+}
+
+void AdventDay::readInput(const char *path) {
+    std::ifstream file(path);
+    std::string line;
+    while(std::getline(file, line)) {
+        parseLine(line);
+    }
+}
+
+void AdventDay::readInputString(const std::string &input) {
+    std::istringstream iss(input);
+    std::string line;
+    while (std::getline(iss, line)) {
+        parseLine(line);
+    }
 }

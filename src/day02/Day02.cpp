@@ -30,15 +30,6 @@ int Day02::sumOfValidGameIds(CubeCount red, CubeCount green, CubeCount blue) con
     return sum;
 }
 
-void Day02::readInput(const char *path) {
-    lines.clear();
-    std::ifstream file(path);
-    std::string line;
-    while (std::getline(file, line)) {
-        addGame(line);
-    }
-}
-
 int Day02::sumOfCubePower() const {
     int power = 0;
     for (const auto &game : games) {
@@ -46,4 +37,8 @@ int Day02::sumOfCubePower() const {
         power += results.red * results.green * results.blue;
     }
     return power;
+}
+
+void Day02::parseLine(const std::string &line) {
+    addGame(line);
 }

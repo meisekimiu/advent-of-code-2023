@@ -51,15 +51,6 @@ int Day01::getCalibrationSum(bool spelledDigits) {
     return sum;
 }
 
-void Day01::readInput(const char *path) {
-    lines.clear();
-    std::ifstream file(path);
-    std::string line;
-    while (std::getline(file, line)) {
-        lines.push_back(line);
-    }
-}
-
 std::string Day01::replaceSpelledDigits(std::string str) {
     std::vector<std::string> digits = {"zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"};
     for (int i = 0; i < str.length(); i++) {
@@ -71,4 +62,8 @@ std::string Day01::replaceSpelledDigits(std::string str) {
         }
     }
     return str;
+}
+
+void Day01::parseLine(const std::string &line) {
+    lines.push_back(line);
 }

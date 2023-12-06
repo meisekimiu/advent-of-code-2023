@@ -10,13 +10,12 @@ class Day04: public AdventDay {
 public:
     int mainPartOne() override;
     int mainPartTwo() override;
-    void parseLine(const std::string &line);
     [[nodiscard]] int totalCardWinnings() const;
     [[nodiscard]] int totalCardCopies() const;
+    void parseLine(const std::string &line) override;
 
 private:
     std::vector<ScratchCard> cards;
-    void readFile(const char *path);
 
 };
 

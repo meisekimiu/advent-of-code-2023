@@ -11,9 +11,11 @@ public:
     int partNumberSum();
     int gearRatioSum();
 
+protected:
+    void parseLine(const std::string &line) override;
+
 private:
     PartsGrid grid;
-    void readFile(const char *path);
 };
 
 

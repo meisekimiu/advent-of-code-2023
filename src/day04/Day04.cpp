@@ -5,13 +5,13 @@
 #include <unordered_map>
 
 int Day04::mainPartOne() {
-    readFile("data/day04/input.txt");
+    readInput("data/day04/input.txt");
     std::cout << totalCardWinnings() << std::endl;
     return EXIT_SUCCESS;
 }
 
 int Day04::mainPartTwo() {
-    readFile("data/day04/input.txt");
+    readInput("data/day04/input.txt");
     std::cout << totalCardCopies() << std::endl;
     return EXIT_SUCCESS;
 }
@@ -26,14 +26,6 @@ int Day04::totalCardWinnings() const {
     return std::transform_reduce(cards.begin(), cards.end(), 0, std::plus{}, [](const ScratchCard& c) {
        return c.getScore();
     });
-}
-
-void Day04::readFile(const char *path) {
-    std::ifstream file(path);
-    std::string line;
-    while(std::getline(file, line)) {
-        parseLine(line);
-    }
 }
 
 int Day04::totalCardCopies() const {

@@ -11,11 +11,13 @@ public:
     int getCalibrationSum(bool spelledDigits);
 
 
+protected:
+    void parseLine(const std::string &line) override;
+
 private:
     static int getFirstDigitInString(const std::string &line);
     static int digitToValue(char c);
     static std::string replaceSpelledDigits(std::string str);
-    void readInput(const char* path);
     std::vector<std::string> lines;
 };
 
