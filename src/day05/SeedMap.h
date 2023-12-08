@@ -6,6 +6,7 @@
 class SeedMap {
 public:
     [[nodiscard]] Seed locateSeed(Seed seed);
+    std::vector<SeedRange> locateRange(const SeedRange &range);
     void addLayer(const SeedMapLayer& layer);
     SeedMapLayer& latestLayer();
 

@@ -35,7 +35,7 @@ void SeedParser::parseStartingSeeds(const std::string &in) {
 
 void SeedParser::extractSeedsFromMatch(const std::string &matchStr) {
     std::stringstream ss;
-    int seedNum;
+    Seed seedNum;
     std::string workingString;
     ss << matchStr;
     while (!ss.eof()) {

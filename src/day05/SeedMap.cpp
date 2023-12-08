@@ -15,3 +15,11 @@ void SeedMap::addLayer(const SeedMapLayer &layer) {
 SeedMapLayer &SeedMap::latestLayer() {
     return layers.back();
 }
+
+std::vector<SeedRange> SeedMap::locateRange(const SeedRange &range) {
+    std::vector<SeedRange> ranges{range};
+    for (const SeedMapLayer& layer : layers) {
+        ranges = layer.processRanges(ranges);
+    }
+    return ranges;
+}
