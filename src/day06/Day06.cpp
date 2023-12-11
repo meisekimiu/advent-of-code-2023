@@ -9,6 +9,13 @@ int Day06::mainPartOne() {
     return EXIT_SUCCESS;
 }
 
+int Day06::mainPartTwo() {
+    parseSingleNumber(true);
+    readInput("data/day06/input.txt");
+    std::cout << productOfPossibleWinTimes() << std::endl;
+    return EXIT_SUCCESS;
+}
+
 void Day06::parseLine(const std::string &line) {
     parser.readLine(line);
 }
@@ -21,4 +28,8 @@ int Day06::productOfPossibleWinTimes() {
     return std::transform_reduce(races.begin(), races.end(), 1, std::multiplies<>(), [](const Race &r) {
        return r.numberOfWinningRaces();
     });
+}
+
+void Day06::parseSingleNumber(bool n) {
+    parser.readSingleNumber = n;
 }

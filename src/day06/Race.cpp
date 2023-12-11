@@ -1,19 +1,21 @@
 #include "Race.h"
 
-int Race::charge(int ms) const {
+RaceLength Race::charge(RaceLength ms) const {
     return (time - ms) * ms;
 }
 
-bool Race::chargeBeatsRecord(int ms) const {
+bool Race::chargeBeatsRecord(RaceLength ms) const {
     return charge(ms) > distance;
 }
 
-int Race::numberOfWinningRaces() const {
-    int winningRaces = 0;
-    for (int i = 0; i < time; i++) {
+RaceLength Race::numberOfWinningRaces() const {
+    int losingRaces = 0;
+    for (RaceLength i = 0; i < time / 2; i++) {
         if (chargeBeatsRecord(i)) {
-            winningRaces++;
+            break;
+        } else {
+            losingRaces++;
         }
     }
-    return winningRaces;
+    return (time + 1) - (losingRaces * 2);
 }

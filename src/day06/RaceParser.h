@@ -6,16 +6,19 @@
 
 class RaceParser {
 public:
+    bool readSingleNumber{false};
     void readLine(const std::string &line);
     std::vector<Race> generateRaces();
 
 protected:
-    std::vector<int> raceTimes;
-    std::vector<int> raceDistances;
+    std::vector<RaceLength> raceTimes;
+    std::vector<RaceLength> raceDistances;
 
 private:
-    static std::vector<int> extractIntsFromLine(std::string line);
-    static void parseParameter(const std::string &line, const std::string &token, std::vector<int> &destination) ;
+    static std::vector<RaceLength> extractMultipleNumbersFromLine(std::string line);
+    static RaceLength extractSingleNumberFromLine(std::string line);
+    void parseParameter(const std::string &line, const std::string &token, std::vector<RaceLength> &destination) ;
+    [[nodiscard]] std::vector<RaceLength> extractNumbersFromLine(const std::string &line) const;
 };
 
 

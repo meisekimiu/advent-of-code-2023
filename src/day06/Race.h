@@ -1,13 +1,15 @@
 #ifndef ADVENT_OF_CODE_RACE_H
 #define ADVENT_OF_CODE_RACE_H
 
-struct Race {
-    int time;
-    int distance;
+typedef unsigned long long int RaceLength;
 
-    [[nodiscard]] int charge(int ms) const;
-    [[nodiscard]] bool chargeBeatsRecord(int ms) const;
-    int numberOfWinningRaces() const;
+struct Race {
+    RaceLength time;
+    RaceLength distance;
+
+    [[nodiscard]] RaceLength charge(RaceLength ms) const;
+    [[nodiscard]] bool chargeBeatsRecord(RaceLength ms) const;
+    [[nodiscard]] RaceLength numberOfWinningRaces() const;
 };
 
 #endif //ADVENT_OF_CODE_RACE_H

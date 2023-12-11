@@ -6,8 +6,9 @@
 class Day06 : public AdventDay {
 public:
     int mainPartOne() override;
-
+    int mainPartTwo() override;
     int productOfPossibleWinTimes();
+    void parseSingleNumber(bool n);
 
 protected:
     void parseLine(const std::string &line) override;

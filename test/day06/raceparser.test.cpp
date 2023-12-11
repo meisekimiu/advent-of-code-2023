@@ -3,11 +3,11 @@
 
 class TestRaceParser : public RaceParser {
 public:
-    [[nodiscard]] std::vector<int> getTimes() const {
+    [[nodiscard]] std::vector<RaceLength> getTimes() const {
         return raceTimes;
     }
 
-    [[nodiscard]] std::vector<int> getDistances() const {
+    [[nodiscard]] std::vector<RaceLength> getDistances() const {
         return raceDistances;
     }
 };
@@ -42,6 +42,22 @@ TEST_CASE("Race Parser", "[day06]") {
         REQUIRE(parser.getDistances()[0] == 9);
         REQUIRE(parser.getDistances()[1] == 40);
         REQUIRE(parser.getDistances()[2] == 200);
+    }
+
+    SECTION("Part 2: Beeg Beeg Number") {
+        parser.readSingleNumber = true;
+
+        SECTION("Parser can read time") {
+            parser.readLine("Time:      7  15   30");
+            REQUIRE(parser.getTimes().size() == 1);
+            REQUIRE(parser.getTimes()[0] == 71530);
+        }
+
+        SECTION("Parser can read distance") {
+            parser.readLine("Distance:  9  40  200");
+            REQUIRE(parser.getDistances().size() == 1);
+            REQUIRE(parser.getDistances()[0] == 940200);
+        }
     }
 
     SECTION("Assembling numbers into Race objects") {

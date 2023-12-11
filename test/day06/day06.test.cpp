@@ -11,6 +11,12 @@ TEST_CASE("Day 06", "[day06]") {
                                 "Distance:  9  40  200");
             REQUIRE(day.productOfPossibleWinTimes() == 288);
         }
+        SECTION("Part 2") {
+            day.parseSingleNumber(true);
+            day.readInputString("Time:      7  15   30\n"
+                                "Distance:  9  40  200");
+            REQUIRE(day.productOfPossibleWinTimes() == 71503);
+        }
     }
 
     SECTION("Part 1: Product of Possible Win Times") {
