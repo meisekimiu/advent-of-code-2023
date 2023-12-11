@@ -8,6 +8,7 @@
 #include "day03/Day03.h"
 #include "day04/Day04.h"
 #include "day05/Day05.h"
+#include "day06/Day06.h"
 
 AdventFactory getAdventFactory() {
     AdventFactory f;
@@ -18,6 +19,7 @@ AdventFactory getAdventFactory() {
     f.registerDay("day03", []() {return static_cast<AdventDay*>(new Day03());});
     f.registerDay("day04", []() {return static_cast<AdventDay*>(new Day04());});
     f.registerDay("day05", []() {return static_cast<AdventDay*>(new Day05());});
+    f.registerDay("day06", []() {return static_cast<AdventDay*>(new Day06());});
     return f;
 }
 
