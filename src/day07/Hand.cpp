@@ -1,22 +1,28 @@
 #include "Hand.h"
 #include "HandTypes.h"
 #include <stdexcept>
+#include <algorithm>
 
-Hand::Hand(const std::string &contents) {
+Hand::Hand(const std::string &contents, bool useJokers) {
+    usingJokers = useJokers;
     if (contents.length() != 5) {
         throw std::invalid_argument("Hand must be exactly 5 hands");
     }
     for (const char c : contents) {
         addCardToHand(c);
     }
+    if (useJokers) {
+        adjustJokersInCardMap();
+    }
 }
 
 void Hand::addCardToHand(char c) {
-    cards.push_back(getCardValue(c));
-    cardMap[c]++;
+    unsigned char cardValue = getCardValue(c);
+    cards.push_back(cardValue);
+    cardMap[cardValue]++;
 }
 
-Card Hand::getCardValue(char c) {
+Card Hand::getCardValue(char c) const {
     switch (c) {
         case 'A':
             return 14;
@@ -25,7 +31,7 @@ Card Hand::getCardValue(char c) {
         case 'Q':
             return 12;
         case 'J':
-            return 11;
+            return usingJokers ? 1 : 11;
         case 'T':
             return 10;
         default:
@@ -34,6 +40,28 @@ Card Hand::getCardValue(char c) {
             }
             return c - '0';
     }
+}
+
+void Hand::adjustJokersInCardMap() {
+    if (cardMap[1] > 0) {
+        if (cardMap[1] == 5) {
+            cardMap[14] = 5;
+        }
+        unsigned char maxQuantity = getMaxCardQuantity();
+        unsigned char maxCardType = 1;
+        const auto &iterator = cardMap.begin();
+        auto it = std::find_if(iterator, cardMap.end(), [maxQuantity](const auto pair) {
+            return pair.second == maxQuantity;
+        });
+        while (it != cardMap.end()) {
+            maxCardType = std::max(it->first, maxCardType);
+            it = std::find_if(++it, cardMap.end(), [maxQuantity](const auto pair) {
+                return pair.second == maxQuantity;
+            });
+        }
+        cardMap[maxCardType] += cardMap[1];
+    }
+    cardMap.erase(1);
 }
 
 std::vector<Card> Hand::getCards() const {
@@ -66,7 +94,9 @@ CardYaku Hand::getHandValue() const {
 unsigned char Hand::getMaxCardQuantity() const {
     unsigned char maxQuantity = 0;
     for (const auto &val : cardMap) {
-        maxQuantity = std::max(maxQuantity, val.second);
+        if (val.first != 1) {
+            maxQuantity = std::max(maxQuantity, val.second);
+        }
     }
     return maxQuantity;
 }

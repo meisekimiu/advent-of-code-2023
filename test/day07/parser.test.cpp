@@ -24,4 +24,11 @@ TEST_CASE("Cards Parser", "[day07]") {
         parser.hands.pop();
         REQUIRE(parser.hands.top().bet == 483);
     }
+
+    SECTION("It can use jokers") {
+        parser.useJokers = true;
+        parser.parseLine("T55J5 684"); // Four of a kind with jokers
+        parser.parseLine("QQQKA 483");
+        REQUIRE(parser.hands.top().bet == 483);
+    }
 }

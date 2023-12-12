@@ -6,7 +6,9 @@
 class Day07 : public AdventDay {
 public:
     int mainPartOne() override;
-    int calculateWinnings();
+    int mainPartTwo() override;
+    unsigned int calculateWinnings();
+    void useJokers(bool j);
 
 protected:
     void parseLine(const std::string &line) override;

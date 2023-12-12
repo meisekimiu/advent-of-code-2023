@@ -9,6 +9,7 @@
 
 class CardsParser {
 public:
+    bool useJokers{false};
     void parseLine(const std::string &line);
     std::priority_queue<Hand, std::vector<Hand>, std::greater<>> hands;
 };

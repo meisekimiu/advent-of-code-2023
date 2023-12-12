@@ -7,9 +7,9 @@
 
 class Hand {
 public:
-    unsigned int bet;
+    unsigned int bet{0};
 
-    explicit Hand(const std::string& contents);
+    explicit Hand(const std::string &contents, bool useJokers = false);
     [[nodiscard]] std::vector<unsigned char> getCards() const;
     CardYaku getHandValue() const;
     friend bool operator<(const Hand &h1, const Hand &h2);
@@ -17,12 +17,14 @@ public:
     friend bool operator>(const Hand &h1, const Hand &h2);
 
 private:
+    bool usingJokers;
     std::vector<unsigned char> cards;
     std::unordered_map<unsigned char, unsigned char> cardMap;
 
-    static unsigned char getCardValue(char c) ;
+    unsigned char getCardValue(char c) const;
     unsigned char getMaxCardQuantity() const;
     void addCardToHand(char c);
+    void adjustJokersInCardMap();
 };
 
 

@@ -12,20 +12,20 @@ TEST_CASE("Camel Cards Hand", "[day07]") {
         REQUIRE(hand.getCards()[4] == 6);
 
         SECTION("Hand must be 5 hands long") {
-            REQUIRE_THROWS(Hand(""));
-            REQUIRE_THROWS(Hand("2345"));
-            REQUIRE_THROWS(Hand("23456789"));
+            REQUIRE_THROWS(Hand("", false));
+            REQUIRE_THROWS(Hand("2345", false));
+            REQUIRE_THROWS(Hand("23456789", false));
         }
 
         SECTION("Hand must be valid card names") {
-            REQUIRE_THROWS(Hand("#$%@#"));
-            REQUIRE_THROWS(Hand("12345"));
-            REQUIRE_THROWS(Hand("ZYXWV"));
-            REQUIRE_NOTHROW(Hand("TJKQA"));
+            REQUIRE_THROWS(Hand("#$%@#", false));
+            REQUIRE_THROWS(Hand("12345", false));
+            REQUIRE_THROWS(Hand("ZYXWV", false));
+            REQUIRE_NOTHROW(Hand("TJKQA", false));
         }
 
         SECTION("Hand gets card values correct") {
-            hand = Hand("TJQKA");
+            hand = Hand("TJQKA", false);
             REQUIRE(hand.getCards()[0] == 10);
             REQUIRE(hand.getCards()[1] == 11);
             REQUIRE(hand.getCards()[2] == 12);
@@ -42,65 +42,80 @@ TEST_CASE("Camel Cards Hand", "[day07]") {
     SECTION("Scoring hands") {
         Hand hand("23456");
 
+        SECTION("Part two") {
+            SECTION("Five jokers") {
+                REQUIRE(Hand("JJJJJ", true).getHandValue() == CardYaku::FiveOfAKind);
+            }
+            SECTION("Joker makes pair") {
+                REQUIRE(Hand("J2345", true).getHandValue() == CardYaku::OnePair);
+            }
+            SECTION("Joker makes four of a kind") {
+                REQUIRE(Hand("QJJQ2", true).getHandValue() == CardYaku::FourOfAKind);
+            }
+        }
+
         SECTION("High Card") {
             REQUIRE(hand.getHandValue() == CardYaku::HighCard);
         }
 
         SECTION("One Pair") {
-            REQUIRE(Hand("22345").getHandValue() == CardYaku::OnePair);
-            REQUIRE(Hand("23245").getHandValue() == CardYaku::OnePair);
-            REQUIRE(Hand("23425").getHandValue() == CardYaku::OnePair);
-            REQUIRE(Hand("23452").getHandValue() == CardYaku::OnePair);
+            REQUIRE(Hand("22345", false).getHandValue() == CardYaku::OnePair);
+            REQUIRE(Hand("23245", false).getHandValue() == CardYaku::OnePair);
+            REQUIRE(Hand("23425", false).getHandValue() == CardYaku::OnePair);
+            REQUIRE(Hand("23452", false).getHandValue() == CardYaku::OnePair);
         }
 
         SECTION("Two Pairs") {
-            REQUIRE(Hand("22344").getHandValue() == CardYaku::TwoPairs);
-            REQUIRE(Hand("22434").getHandValue() == CardYaku::TwoPairs);
-            REQUIRE(Hand("23424").getHandValue() == CardYaku::TwoPairs);
+            REQUIRE(Hand("22344", false).getHandValue() == CardYaku::TwoPairs);
+            REQUIRE(Hand("22434", false).getHandValue() == CardYaku::TwoPairs);
+            REQUIRE(Hand("23424", false).getHandValue() == CardYaku::TwoPairs);
         }
 
         SECTION("Three of a Kind") {
-            REQUIRE(Hand("22234").getHandValue() == CardYaku::ThreeOfAKind);
-            REQUIRE(Hand("23224").getHandValue() == CardYaku::ThreeOfAKind);
-            REQUIRE(Hand("23242").getHandValue() == CardYaku::ThreeOfAKind);
+            REQUIRE(Hand("22234", false).getHandValue() == CardYaku::ThreeOfAKind);
+            REQUIRE(Hand("23224", false).getHandValue() == CardYaku::ThreeOfAKind);
+            REQUIRE(Hand("23242", false).getHandValue() == CardYaku::ThreeOfAKind);
         }
 
         SECTION("Full House") {
-            REQUIRE(Hand("22333").getHandValue() == CardYaku::FullHouse);
-            REQUIRE(Hand("AJAJA").getHandValue() == CardYaku::FullHouse);
+            REQUIRE(Hand("22333", false).getHandValue() == CardYaku::FullHouse);
+            REQUIRE(Hand("AJAJA", false).getHandValue() == CardYaku::FullHouse);
         }
 
         SECTION("Four of a Kind") {
-            REQUIRE(Hand("22223").getHandValue() == CardYaku::FourOfAKind);
-            REQUIRE(Hand("22322").getHandValue() == CardYaku::FourOfAKind);
+            REQUIRE(Hand("22223", false).getHandValue() == CardYaku::FourOfAKind);
+            REQUIRE(Hand("22322", false).getHandValue() == CardYaku::FourOfAKind);
         }
 
         SECTION("Five of a Kind") {
-            REQUIRE(Hand("AAAAA").getHandValue() == CardYaku::FiveOfAKind);
+            REQUIRE(Hand("AAAAA", false).getHandValue() == CardYaku::FiveOfAKind);
         }
     }
 
     SECTION("Comparing hands") {
         SECTION("Operator <") {
             SECTION("Bigger Yaku == Bigger Value") {
-                REQUIRE(Hand("AKQJT") < Hand("22345"));
-                REQUIRE(Hand("22345") < Hand("22234"));
-                REQUIRE(Hand("AAAQK") < Hand("22233"));
-                REQUIRE(Hand("AAAKK") < Hand("22223"));
-                REQUIRE(Hand("AAAAK") < Hand("22222"));
+                REQUIRE(Hand("AKQJT", false) < Hand("22345", false));
+                REQUIRE(Hand("22345", false) < Hand("22234", false));
+                REQUIRE(Hand("AAAQK", false) < Hand("22233", false));
+                REQUIRE(Hand("AAAKK", false) < Hand("22223", false));
+                REQUIRE(Hand("AAAAK", false) < Hand("22222", false));
             }
             SECTION("Same Yaku, the hands decide in order") {
-                REQUIRE(Hand("22345") < Hand("52234"));
-                REQUIRE(Hand("AA234") < Hand("AAJQK"));
-                REQUIRE(Hand("AAAAQ") < Hand("AAAAK"));
+                REQUIRE(Hand("22345", false) < Hand("52234", false));
+                REQUIRE(Hand("AA234", false) < Hand("AAJQK", false));
+                REQUIRE(Hand("AAAAQ", false) < Hand("AAAAK", false));
             }
         }
         SECTION("Operator ==") {
-            REQUIRE(Hand("22222") == Hand("22222"));
-            REQUIRE_FALSE(Hand("23456") == Hand("23457"));
+            REQUIRE(Hand("22222", false) == Hand("22222", false));
+            REQUIRE_FALSE(Hand("23456", false) == Hand("23457", false));
         }
         SECTION("Operator >") {
-            REQUIRE(Hand("AAAAA") > Hand("AAAAK"));
+            REQUIRE(Hand("AAAAA", false) > Hand("AAAAK", false));
+        }
+        SECTION("Part 2: Joker is lowest value") {
+            REQUIRE(Hand("22222", true) > Hand("JJJJJ", true));
         }
     }
 }

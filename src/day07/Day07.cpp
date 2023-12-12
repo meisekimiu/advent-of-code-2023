@@ -7,17 +7,26 @@ int Day07::mainPartOne() {
     return EXIT_SUCCESS;
 }
 
+int Day07::mainPartTwo() {
+    useJokers(true);
+    return mainPartOne();
+}
+
 void Day07::parseLine(const std::string &line) {
     parser.parseLine(line);
 }
 
-int Day07::calculateWinnings() {
-    int rank = 1;
-    int winnings = 0;
+unsigned int Day07::calculateWinnings() {
+    unsigned int rank = 1;
+    unsigned int winnings = 0;
     while (!parser.hands.empty()) {
         winnings += rank * parser.hands.top().bet;
         parser.hands.pop();
         rank++;
     }
     return winnings;
+}
+
+void Day07::useJokers(bool j) {
+    parser.useJokers = j;
 }
