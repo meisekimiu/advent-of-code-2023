@@ -96,7 +96,7 @@ TEST_CASE("Day 04", "[day04]") {
             day.parseLine("Card 6: 31 18 13 56 72 | 74 77 10 23 35 67 36 11");
             REQUIRE(day.totalCardCopies() == 1);
         }
-        SECTION("1 match on 2 cards") {
+        SECTION("1 match on 2 hands") {
             day.parseLine("Card 1: 1 2 3 | 3 4 5");
             day.parseLine("Card 2: 1 2 3 | 7 8 9");
             REQUIRE(day.totalCardCopies() == 3);
