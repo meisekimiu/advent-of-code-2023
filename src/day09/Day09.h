@@ -6,13 +6,17 @@
 class Day09 : public AdventDay {
 public:
     int mainPartOne() override;
-    OasisInt sumOfExtrapolatedValues() const;
+    int mainPartTwo() override;
+    [[nodiscard]] OasisInt sumOfForwardExtrapolatedValues() const;
+    [[nodiscard]] OasisInt sumOfBackwardExtrapolatedValues() const;
 
 protected:
     void parseLine(const std::string &line) override;
 
 private:
     OasisParser parser;
+
+    OasisInt sumOfSequences(OasisInt (*unaryOp)(const std::vector<OasisInt> &)) const;
 };
 
 

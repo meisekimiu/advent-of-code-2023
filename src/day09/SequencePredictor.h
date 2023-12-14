@@ -8,6 +8,7 @@ class SequencePredictor {
 public:
     explicit SequencePredictor(const std::vector<OasisInt>& input);
     OasisInt nextNumber();
+    OasisInt prevNumber();
 
 private:
     std::vector<std::vector<OasisInt>> dx;

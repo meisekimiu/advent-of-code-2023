@@ -7,18 +7,27 @@ SequencePredictor::SequencePredictor(const std::vector<OasisInt>& input) {
         throw std::invalid_argument("SequencePredictor needs at least 2 numbers in sequence.");
     }
     dx.push_back(input);
+    calculateSequenceDifferences();
+    extendSequences();
 }
 
 OasisInt SequencePredictor::nextNumber() {
-    calculateSequenceDifferences();
-    extendSequences();
     return dx[0].back();
 }
 
+OasisInt SequencePredictor::prevNumber() {
+    return dx[0].front();
+}
+
 void SequencePredictor::extendSequences() {
-    dx.back().push_back(dx.back().back());
+    std::vector<OasisInt> &back = dx.back();
+    back.push_back(back.back());
+    back.insert(back.begin(), back.front());
     for (int i = static_cast<int>(dx.size()) - 2; i >= 0; i--) {
-        dx[i].push_back(dx[i].back() + dx[i + 1].back());
+        std::vector<OasisInt> &seq = dx[i];
+        std::vector<OasisInt> &next = dx[i + 1];
+        seq.push_back(seq.back() + next.back());
+        seq.insert(seq.begin(), seq.front() - next.front());
     }
 }
 
