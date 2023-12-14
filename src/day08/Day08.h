@@ -6,7 +6,9 @@
 class Day08 : public AdventDay {
 public:
     int mainPartOne() override;
+    int mainPartTwo() override;
     unsigned int stepsToZzz();
+    unsigned long long int ghostStepsFromAToZ();
 
 protected:
     void parseLine(const std::string &line) override;

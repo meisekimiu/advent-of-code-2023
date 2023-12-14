@@ -35,4 +35,22 @@ TEST_CASE("Node Map", "[day08]") {
         REQUIRE(nodeMap["AAA"].left == "BBB");
         REQUIRE(nodeMap["AAA"].right == "CCC");
     }
+
+    SECTION("It can traverse from all **A nodes to **Z nodes") {
+        map.addNode("11A", {"11B", "XXX"});
+        map.addNode("11B", {"XXX", "11Z"});
+        map.addNode("11Z", {"11B", "XXX"});
+        map.addNode("22A", {"22B", "XXX"});
+        map.addNode("22B", {"22C", "22C"});
+        map.addNode("22C", {"22Z", "22Z"});
+        map.addNode("22Z", {"22B", "22B"});
+        map.addNode("XXX", {"XXX", "XXX"});
+        REQUIRE(map.ghostStepsFromAToZ("LR") == 6);
+    }
+
+    SECTION("It can detect infinite loops in 'ghost mode'") {
+        map.addNode("11A", {"11A", "11A"});
+        map.addNode("22A", {"22A", "22A"});
+        REQUIRE_THROWS(map.ghostStepsFromAToZ("LRLLRLRLRLR"));
+    }
 }
