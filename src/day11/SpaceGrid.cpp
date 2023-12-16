@@ -3,12 +3,6 @@
 
 void SpaceGrid::expand() {
     getExpansionRowsAndColumns();
-    while (!columnsToAdd.empty()) {
-        addColumn();
-    }
-    while (!rowsToAdd.empty()) {
-        addRow();
-    }
 }
 
 void SpaceGrid::getExpansionRowsAndColumns() {
@@ -32,30 +26,10 @@ void SpaceGrid::getExpansionRowsAndColumns() {
     }
 }
 
-void SpaceGrid::addColumn() {
-    unsigned int x = columnsToAdd.back();
-    columnsToAdd.pop_back();
-    for (auto &vec : grid) {
-        vec.insert(vec.begin() + x, '.');
-    }
-    adjustValuesForExpansion(x, columnsToAdd);
-    width++;
+std::vector<unsigned int> SpaceGrid::getExpansionColumns() {
+    return columnsToAdd;
 }
 
-void SpaceGrid::adjustValuesForExpansion(unsigned int x, std::vector<unsigned int> &vector) {
-    for (auto &val : vector) {
-        if (val > x) {
-            val++;
-        }
-    }
-}
-
-void SpaceGrid::addRow() {
-    unsigned int y = rowsToAdd.back();
-    rowsToAdd.pop_back();
-    std::vector<char> row(width);
-    std::fill(row.begin(), row.end(), '.');
-    grid.insert(grid.begin() + y, row);
-    adjustValuesForExpansion(y, rowsToAdd);
-    height++;
+std::vector<unsigned int> SpaceGrid::getExpansionRows() {
+    return rowsToAdd;
 }

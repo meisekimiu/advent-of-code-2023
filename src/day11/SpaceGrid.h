@@ -5,17 +5,14 @@
 class SpaceGrid : public Grid {
 public:
     void expand();
+    std::vector<unsigned int> getExpansionColumns();
+    std::vector<unsigned int> getExpansionRows();
 
 private:
     std::vector<unsigned int> columnsToAdd;
     std::vector<unsigned int> rowsToAdd;
 
-    void addColumn();
-    void addRow();
-
     void getExpansionRowsAndColumns();
-
-    static void adjustValuesForExpansion(unsigned int x, std::vector<unsigned int> &vector) ;
 };
 
 

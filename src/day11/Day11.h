@@ -6,7 +6,9 @@
 class Day11 : public AdventDay {
 public:
     int mainPartOne() override;
+    int mainPartTwo() override;
     GalacticDistance sumOfDistancesBetweenGalaxies();
+    void setCosmicExpansion(GalacticDistance d);
 
 protected:
     void parseLine(const std::string &line) override;

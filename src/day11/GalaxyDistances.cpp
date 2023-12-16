@@ -1,4 +1,5 @@
 #include "GalaxyDistances.h"
+#include <stdexcept>
 
 void GalaxyDistances::addLine(const std::string &line) {
     grid.addLine(line);
@@ -11,22 +12,46 @@ static unsigned int numberOfPairs(unsigned int size) {
 std::vector<GalacticDistance> GalaxyDistances::getDistances() {
     if (!expanded) {
         grid.expand();
+        expansionRows = grid.getExpansionRows();
+        expansionColumns = grid.getExpansionColumns();
         expanded = true;
     }
-    std::vector<Point> galaxies = grid.scan('#');
+    const std::vector<Point> galaxies = grid.scan('#');
     std::vector<GalacticDistance> distances;
     distances.reserve(numberOfPairs(galaxies.size()));
     for (int i = 0; i < galaxies.size(); i++) {
         for (int j = i + 1; j < galaxies.size(); j++) {
-            GalacticDistance dist = pointDistance(galaxies[i], galaxies[j]);
+            GalacticPoint galaxyI = getPositionWithExpansion(galaxies[i]);
+            GalacticPoint galaxyJ = getPositionWithExpansion(galaxies[j]);
+            GalacticDistance dist = pointDistance(galaxyI, galaxyJ);
             distances.push_back(dist);
         }
     }
     return distances;
 }
 
-GalacticDistance GalaxyDistances::pointDistance(const Point &p1, const Point &p2) {
-    unsigned int xDist = std::abs(static_cast<int>(p1.x) - static_cast<int>(p2.x));
-    unsigned int yDist = std::abs(static_cast<int>(p1.y) - static_cast<int>(p2.y));
+GalacticDistance GalaxyDistances::pointDistance(const GalacticPoint &p1, const GalacticPoint &p2) {
+    GalacticDistance xDist = std::max(p1.x, p2.x) - std::min(p1.x, p2.x);
+    GalacticDistance yDist = std::max(p1.y, p2.y) - std::min(p1.y, p2.y);
     return xDist + yDist;
+}
+
+GalacticPoint GalaxyDistances::getPositionWithExpansion(const Point &gridPoint) {
+    GalacticPoint p = gridPoint;
+    for (const auto row : expansionRows) {
+        if (row < gridPoint.y) {
+            p.y += cosmicExpansionRate;
+        }
+    }
+    for (const auto column : expansionColumns) {
+        if (column < gridPoint.x) {
+            p.x += cosmicExpansionRate;
+        }
+    }
+    return p;
+}
+
+GalacticPoint::GalacticPoint(const Point &p) {
+    x = p.x;
+    y = p.y;
 }

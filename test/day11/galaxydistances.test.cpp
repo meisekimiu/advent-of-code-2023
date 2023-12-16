@@ -27,4 +27,19 @@ TEST_CASE("Galaxy Distances", "[day11]") {
             REQUIRE(g.getDistances().size() == distances.size());
         }
     }
+
+    SECTION("Different cosmic expansion rate") {
+        g.addLine("#.....");
+        g.addLine(".#....");
+        g.addLine("......");
+        g.addLine("......");
+        g.addLine("....#.");
+        g.addLine("......");
+        g.cosmicExpansionRate = 2;
+
+        auto distances = g.getDistances();
+        REQUIRE(distances[0] == 2);
+        REQUIRE(distances[1] == 16);
+        REQUIRE(distances[2] == 14);
+    }
 }
