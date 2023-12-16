@@ -29,11 +29,12 @@ public:
     [[nodiscard]] unsigned int getWidth() const;
     [[nodiscard]] unsigned int getHeight() const;
 
-private:
+protected:
     std::vector<std::vector<char>> grid;
     unsigned int width{0};
     unsigned int height{0};
 
+private:
     void checkInBounds(unsigned int x, unsigned int y) const;
 
     void setBorderPoint(BorderingPoints &points, unsigned int destX, unsigned int destY, Point *& destDir) const;

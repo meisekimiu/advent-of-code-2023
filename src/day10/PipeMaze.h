@@ -1,6 +1,6 @@
 #ifndef ADVENT_OF_CODE_PIPEMAZE_H
 #define ADVENT_OF_CODE_PIPEMAZE_H
-#include "Grid.h"
+#include "../util/Grid.h"
 #include "ConnectingPoints.h"
 
 class PipeMaze {

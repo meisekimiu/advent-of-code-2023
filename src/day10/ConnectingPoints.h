@@ -1,7 +1,7 @@
 #ifndef ADVENT_OF_CODE_CONNECTINGPOINTS_H
 #define ADVENT_OF_CODE_CONNECTINGPOINTS_H
 
-#include "Grid.h"
+#include "../util/Grid.h"
 #include <stdexcept>
 
 struct ConnectingPoints {

@@ -1,5 +1,5 @@
 #include <catch2/catch.hpp>
-#include "../../src/day10/Grid.h"
+#include "../../src/util/Grid.h"
 
 TEST_CASE("Grid", "[day10] [grid]") {
     Grid g;

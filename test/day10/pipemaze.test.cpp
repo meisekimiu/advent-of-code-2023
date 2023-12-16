@@ -1,11 +1,6 @@
 #include <catch2/catch.hpp>
 #include "../../src/day10/PipeMaze.h"
-
-bool pointIsInVec(const std::vector<Point> &points, const Point &p) {
-    return std::any_of(points.begin(), points.end(), [p](const Point &point) {
-        return point.x == p.x && point.y == p.y;
-    });
-}
+#include "../util/pointUtils.h"
 
 TEST_CASE("Pipe Maze", "[day10]") {
     PipeMaze m;
