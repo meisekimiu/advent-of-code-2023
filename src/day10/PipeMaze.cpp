@@ -89,3 +89,7 @@ ConnectingPoints PipeMaze::getPipeConnections(const Point &p, const BorderingPoi
     return connections;
 }
 
+Grid PipeMaze::getGrid() const {
+    return grid;
+}
+

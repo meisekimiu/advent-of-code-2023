@@ -8,6 +8,7 @@ public:
     void addLine(const std::string &line);
     [[nodiscard]] Point getStartingPoint() const;
     [[nodiscard]] std::vector<Point> getMazePoints() const;
+    Grid getGrid() const;
 
 private:
     Grid grid;
